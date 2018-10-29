@@ -1,0 +1,31 @@
+var fs = require("fs");
+
+console.log("Going to open file!");
+fs.open('inp.txt', 'a+', function(err, fd) {
+   if (err) {
+      return console.error(err);
+   }
+   console.log("File opened successfully!");
+console.log("This is text from File 1");
+fs.writeFile('inp.txt', 'This is text from File 1', function(err) {
+   if (err) {
+      return console.error(err);
+   }
+   
+   console.log("Data written successfully!");
+   console.log("Let's read newly written data");
+   
+   fs.readFile('inp.txt', function (err, data) {
+      if (err) {
+         return console.error(err);
+      }
+      console.log("read: " + data.toString());
+      fs.close(fd, function(err) {
+         if (err) {
+            console.log(err);
+         } 
+         console.log("File closed successfully.");
+      });
+   });
+});
+});
